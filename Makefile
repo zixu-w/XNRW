@@ -22,7 +22,7 @@ $(OBJECTS) : $(OBJDIR)/%.o : $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CXX) -c -o $@ $^ $(CXXFLAGS)
 
 clean : exampleClean
-	$(RM) $(OBJECTS)
+	$(RM) -r $(OBJDIR)
 
 exampleClean :
 	$(MAKE) clean -C $(EXAMPLEDIR)

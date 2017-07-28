@@ -26,4 +26,4 @@ $(BINDIR)/%Example : $(OBJDIR)/%Example.o $(DEPOBJDIR)/%.o | $(BINDIR)
 	$(CXX) -o $@ $^ $(CXXFLAGS)
 
 clean :
-	$(RM) $(OBJECTS) $(ALL)
+	$(RM) -r $(OBJDIR) $(BINDIR)

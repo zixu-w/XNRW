@@ -10,22 +10,22 @@ XNRW::ThreadPool::ThreadPool(const size_t& numThreads) :stopFlag(false), size(nu
 
   for (size_t i = 0; i < size; i++)
     threads.push_back(std::thread([this] {
-      std::unique_lock<std::mutex> l(this->mtx, std::defer_lock);
+      std::unique_lock<std::mutex> l(mtx, std::defer_lock);
 
       while (not stopFlag.load(std::memory_order_acquire)) {
         l.lock();
 
         func_t currTask;
 
-        this->taskCond.wait(l, [this] {
-          return stopFlag.load(std::memory_order_acquire) or not this->tasks.empty();
+        taskCond.wait(l, [this] {
+          return stopFlag.load(std::memory_order_acquire) or not tasks.empty();
         });
 
         if (stopFlag.load(std::memory_order_acquire))
           return;
 
         ++busy;
-        currTask = std::move(this->tasks.front());
+        currTask = std::move(tasks.front());
         tasks.pop();
         l.unlock();
 
