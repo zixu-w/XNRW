@@ -2,7 +2,9 @@
 
 XNRW::ThreadPool::ThreadPool(void) :ThreadPool(0) {}
 
-XNRW::ThreadPool::ThreadPool(const size_t& numThreads) :stopFlag(false), size(numThreads), busy(0) {
+XNRW::ThreadPool::ThreadPool(const size_t& numThreads) :stopFlag(false),
+                                                        size(numThreads),
+                                                        busy(0) {
   if (size <= 0) {
     size = std::thread::hardware_concurrency();
     size = size == 0 ? 2 : size;
